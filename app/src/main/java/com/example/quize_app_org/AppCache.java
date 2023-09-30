@@ -9,7 +9,7 @@ public class AppCache {
 
     private static SharedPreferences preferences;
     private AppCache(Context context){
-        preferences = context.getSharedPreferences("");
+        preferences = context.getSharedPreferences("puzzle_15");
     };
 
     public static void init(Context context) {
