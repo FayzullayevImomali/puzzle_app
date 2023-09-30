@@ -140,8 +140,11 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "You win!", Toast.LENGTH_SHORT).show();
         timerCountDown.cancel();
         Intent intent = new Intent(MainActivity.this, WinGamer.class);
-        intent.putExtra("STEP" , stepCount);
-        intent.putExtra("TIME" , timeFormat);
+        AppCache.getObject().saveTime(timeFormat);;
+        AppCache.getObject().saveStep(stepCount);
+//        intent.putExtra("STEP" , stepCount);
+//        intent.putExtra("TIME" , timeFormat);
+//        intent.putExtra("CONVERTER" , converter(timerCount));
         startActivity(intent);
         finish();
         

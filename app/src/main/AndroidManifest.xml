@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Quize_app_org"
         tools:targetApi="31">
         <activity
-            android:name=".SavedReslut"
+            android:name=".SavedResult"
             android:exported="false" />
         <activity
             android:name=".WinGamer"

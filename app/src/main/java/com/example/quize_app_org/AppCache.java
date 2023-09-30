@@ -8,8 +8,11 @@ public class AppCache {
     private static AppCache cache;
 
     private static SharedPreferences preferences;
+
+    private static final String TIME_KEY = "time_key";
+    private static final String STEP_KEY = "step_key";
     private AppCache(Context context){
-        preferences = context.getSharedPreferences("puzzle_15");
+        preferences = context.getSharedPreferences("puzzle_15",Context.MODE_PRIVATE);
     };
 
     public static void init(Context context) {
@@ -23,4 +26,19 @@ public class AppCache {
         return cache;
     }
 
+    public void saveTime(String time){
+        preferences.edit().putString(TIME_KEY, time).apply();
+    }
+
+    public void saveStep(Integer stepCount) {
+        preferences.edit().putInt(STEP_KEY,stepCount).apply();
+    }
+
+    public String getTime() {
+        return preferences.getString(TIME_KEY,"");
+    }
+
+    public Integer getStep() {
+        return preferences.getInt(STEP_KEY,0);
+    }
 }

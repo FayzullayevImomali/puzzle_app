@@ -17,8 +17,10 @@ public class WinGamer extends AppCompatActivity {
     private TextView displayTime, displayScore;
     private Button backToGameBtn, saveResult;
 
-    Integer step;
+    String step;
     String time;
+
+    String converter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,9 @@ public class WinGamer extends AppCompatActivity {
         backToGameAction();
         saveResultAction();
 
-        step = getIntent().getIntExtra("STEP", 0);
-        time = getIntent().getStringExtra("TIME");
+        step = AppCache.getObject().getStep().toString();
+        time = AppCache.getObject().getTime();
+        converter = getIntent().getStringExtra("CONVERTER");
 
         Log.d("TAGaaa", "onCreate: "+time);
 
@@ -45,13 +48,16 @@ public class WinGamer extends AppCompatActivity {
         saveResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences file = getSharedPreferences("puzzle_15", Context.MODE_PRIVATE);
-                file.edit().putInt("step_count", step).apply();
-                file.edit().putString("time", time).apply();
 
-                Intent intent = new Intent(WinGamer.this, SavedReslut.class);
-                intent.putExtra("step_count", step);
-                intent.putExtra("time", time);
+                //AppCache.getObject().saveTime(time);
+//                AppCache.getObject().saveStep(step);
+                //SharedPreferences file = getSharedPreferences("puzzle_15", Context.MODE_PRIVATE);
+//                file.edit().putInt("step_count", step).apply();
+                //file.edit().putString("time", time).apply();
+
+                Intent intent = new Intent(WinGamer.this, SavedResult.class);
+//                intent.putExtra("step_count", step);
+//                intent.putExtra("time", time);
                 startActivity(intent);
                 finish();
 
