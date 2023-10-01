@@ -29,6 +29,35 @@
             android:orientation="vertical"
             android:layout_gravity="center">
 
+<!--            User accaunt block-->
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:gravity="center"
+                android:background="@drawable/shape_for_user">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:layout_marginRight="5dp"
+                    android:textColor="#000"
+                    android:drawableStart="@drawable/shape_persone"
+                    android:text="User name:"/>
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#000"
+                    android:drawableStart="@drawable/shape_persone"
+                    android:text=""/>
+
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="My score: "
+                    android:gravity="center"
                     android:textSize="30sp"
                     android:textColor="#fff"/>
 

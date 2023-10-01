@@ -11,11 +11,13 @@ import android.widget.TextView;
 public class SavedResult extends AppCompatActivity {
 
 
-    private TextView scoreData, timeData;
+    private TextView scoreData, timeData, userName;
     private Button backToGameBTN;
 
     String score;
     String time;
+
+    String user;
 
 
     @Override
@@ -45,16 +47,19 @@ public class SavedResult extends AppCompatActivity {
 //        score = getIntent().getIntExtra("step_count",0);
         score = AppCache.getObject().getStep().toString();
         time = AppCache.getObject().getTime();
+        user = AppCache.getObject().getUserName();
 
 
 
         scoreData.setText(score);
         timeData.setText(time);
+        userName.setText(user);
     }
     private void loadView(){
         scoreData = findViewById(R.id.saved_score);
         timeData = findViewById(R.id.saved_time);
         backToGameBTN = findViewById(R.id.backToGameBTN);
+        userName = findViewById(R.id.user_name);
     }
 
 

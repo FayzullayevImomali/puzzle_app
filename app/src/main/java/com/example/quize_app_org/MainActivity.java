@@ -1,10 +1,12 @@
 package com.example.quize_app_org;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
     private CountDownTimer timerCountDown;
 
+
+    private final String STEP_KEY = "step";
+    private final String TIME_KEY = "time";
+    private final String EMPTY_I = "empty_i";
+    private final String EMPTY_J = "empty_j";
+    private final String NUMBERS_KEY= "numbers_key";
+
+
+
+
+
     String timeFormat;
 
     Integer timerCount = 0;
@@ -50,8 +63,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         loadView();
-        loadNumber();
-        loadDataToView();
+
+        if(savedInstanceState != null) {
+            stepCount = savedInstanceState.getInt(STEP_KEY);
+            timerCount = savedInstanceState.getInt(TIME_KEY);
+            timerCountDown = new CountDownTimer(1_000_000L, 1_000) {
+                @Override
+                public void onTick(long l) {
+                    timerCount++;
+                    setTime();
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            };
+            timerCountDown.start();
+
+            emptyI = savedInstanceState.getInt(EMPTY_I);
+            emptyJ = savedInstanceState.getInt(EMPTY_J);
+
+            String[] numbers = savedInstanceState.getStringArray(NUMBERS_KEY);
+
+            for(int i = 0; i < 16; i++) {
+                buttons[i/4][i%4].setText(numbers[i]);
+                buttons[i/4][i%4].setVisibility(View.VISIBLE);
+            }
+            buttons[emptyI][emptyJ].setVisibility(View.INVISIBLE);
+
+        } else {
+            loadNumber();
+            loadDataToView();
+        }
+
         loadAction();
 
 
@@ -151,8 +196,8 @@ public class MainActivity extends AppCompatActivity {
     }
     private void loadDataToView() {
 
-        stepView.setText("0");
-        timer.setText("00:00:00");
+        stepView.setText(String.valueOf(stepCount));
+//        timer.setText("00:00:00");
 
 //
 //        timer.scheduleAtFixedRate(task, 1_000, 1_000);
@@ -218,5 +263,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public  void onSaveInstanceState(@NonNull Bundle outState) {
+
+        String[] texts = new String[16];
+
+        for(int i = 0; i < 16; i++) {
+            TextView child = (TextView) buttonGroup.getChildAt(i);
+            String text = child.getText().toString();
+            texts[i] = text;
+
+        }
+
+        super.onSaveInstanceState(outState);
+        outState.putInt(STEP_KEY, stepCount);
+        outState.putInt(TIME_KEY, timerCount);
+        outState.putInt(EMPTY_I, emptyI);
+        outState.putInt(EMPTY_J, emptyJ);
+        outState.putStringArray(NUMBERS_KEY,texts);
+
+    }
 
 }

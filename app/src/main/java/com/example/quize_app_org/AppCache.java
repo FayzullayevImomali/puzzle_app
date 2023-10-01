@@ -11,6 +11,8 @@ public class AppCache {
 
     private static final String TIME_KEY = "time_key";
     private static final String STEP_KEY = "step_key";
+
+    private static final String USER_KEY = "user_key";
     private AppCache(Context context){
         preferences = context.getSharedPreferences("puzzle_15",Context.MODE_PRIVATE);
     };
@@ -34,6 +36,10 @@ public class AppCache {
         preferences.edit().putInt(STEP_KEY,stepCount).apply();
     }
 
+    public void saveUserName (String userName) {
+        preferences.edit().putString(USER_KEY, userName).apply();
+    }
+
     public String getTime() {
         return preferences.getString(TIME_KEY,"");
     }
@@ -41,4 +47,6 @@ public class AppCache {
     public Integer getStep() {
         return preferences.getInt(STEP_KEY,0);
     }
+
+    public String getUserName() {return preferences.getString(USER_KEY, "");}
 }
